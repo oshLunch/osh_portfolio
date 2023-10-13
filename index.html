@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="lib/fullPage.js-master/dist/fullpage.min.css">
+    <!-- 항상 우리가 작성하는게 가장 밑에 있어야 한다 -->
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="lib/jquery-3.7.0.min.js"></script>
+    <script src="lib/fullPage.js-master/dist/fullpage.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        $(function () {
+            var myFullpage = new fullpage('#fullpage', {
+                navigation: false,
+            });
+
+
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = now.getMonth() + 1;
+            var date = now.getDate();
+            $("header .inner span").eq(0).text(year);
+            $("header .inner span").eq(1).text(month);
+            $("header .inner span").eq(2).text(date);
+
+            let mouse = $('.main_visual .scroll_down');
+
+            mouse.delay(5000).animate({
+                opacity: 1
+            }, 1000);
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <header>
+            <div class="inner">
+                <div class="logo">
+                    <h1>OH<br>
+                        SEUNGHUN</h1>
+                </div> <!-- logo end -->
+
+                <div class="date">
+                    <p><span></span>.<span></span>.<span></span></p>
+                </div> <!-- date end -->
+
+                <nav class="menu">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Portfolio</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav> <!-- menu end -->
+            </div> <!-- inner end -->
+        </header>
+
+        <div id="fullpage">
+            <div class="section main_visual" id="section0">
+                <div class="inner">
+                    <div class="title">
+                        <div class="frame1"></div>
+                        <div class="frame2"></div>
+                        <h2>WELLCOME TO MY PORTFOLIO</h2>
+                    </div> <!-- title end -->
+
+                    <div class="scroll_down">
+                        <div class="mouse_frame"></div>
+                        <div class="mouse_wheel"></div>
+                    </div> <!-- scroll_down end -->
+                </div> <!-- inner end -->
+            </div> <!-- section0 end -->
+
+            <div class="section" id="section1">
+                <div class="inner">
+                    <div class="profile">
+                        <figure>
+                            <img src="" alt="내 사진">
+
+                            <div class="info">
+                                <strong>ABOUT ME</strong>
+                                <p>안녕하세요! 웹 퍼블리셔 오승훈입니다. <br>
+                                    멈추지 않고 항상 발전해나가는<br>
+                                    개발자가 되고 싶습니다.</p>
+                            </div> <!-- info end -->
+                        </figure>
+
+                        <div class="career">
+                            <ul>
+                                <li>
+                                    <strong>2012</strong>
+                                    <p>부산 대동고등학교 졸업</p>
+                                </li>
+
+                                <li>
+                                    <strong>2020</strong>
+                                    <p>부산 동서대학교 컴퓨터공학부 졸업</p>
+                                </li>
+
+                                <li>
+                                    <strong>2019.01 ~ 2020.05</strong>
+                                    <p>해외취업프로그램 K-MOVE 참여</p>
+                                </li>
+
+                                <li>
+                                    <strong>2020-11 ~ 2021-04</strong>
+                                    <p>(디지털컨버전스)자바(Java)스프링프레임워크 개발자양성 과정 수료</p>
+                                </li>
+
+                                <li>
+                                    <strong>2023.06 ~ 2023.11</strong>
+                                    <p>인터렉티브 웹모션(HTML,CSS,JS) UI/UX 퍼블리셔 실무 과정 수료</p>
+                                </li>
+                            </ul>
+                        </div> <!-- career end -->
+                    </div> <!-- profile end -->
+
+                    <div class="skill">
+                        <canvas id="myChart" width="600" height="600"></canvas>
+                    </div> <!-- skill end -->
+                </div> <!-- inner end -->
+            </div> <!-- section1 end -->
+
+            <div class="section" id="section2">
+                <div class="inner">
+                    <div class="intro">
+                        <h1>3</h1>
+                    </div>
+                </div> <!-- inner end -->
+            </div> <!-- section2 end -->
+        </div> <!-- fullpage end -->
+
+        <footer></footer>
+    </div> <!-- #wrap end -->
+</body>
+
+</html>
+
+
+<!-- <div class="slide" id="slide1">
+    <div class="intro">
+        <h1>2</h1>
+    </div>
+</div>
+
+<div class="slide" id="slide2">
+    <h1>This example uses responsiveWidth: 900</h1>
+</div> -->
