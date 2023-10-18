@@ -8,31 +8,230 @@
     <link rel="stylesheet" href="lib/fullPage.js-master/dist/fullpage.min.css">
     <!-- 항상 우리가 작성하는게 가장 밑에 있어야 한다 -->
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
 
     <script src="lib/jquery-3.7.0.min.js"></script>
     <script src="lib/fullPage.js-master/dist/fullpage.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 
     <script>
         $(function () {
-            var myFullpage = new fullpage('#fullpage', {
-                navigation: false,
-            });
-
-
+            // 헤더부분 함수
+            let header = $('header');
+            let navItem = $('header .menu ul li');
+            let dateNum = $("header .inner span");
             var now = new Date();
             var year = now.getFullYear();
             var month = now.getMonth() + 1;
             var date = now.getDate();
-            $("header .inner span").eq(0).text(year);
-            $("header .inner span").eq(1).text(month);
-            $("header .inner span").eq(2).text(date);
 
-            let mouse = $('.main_visual .scroll_down');
-
-            mouse.delay(5000).animate({
+            // 헤더 나타내는 애니메이션
+            header.animate({
                 opacity: 1
             }, 1000);
+
+            // 헤더 년,월,일
+            dateNum.eq(0).text(year);
+            dateNum.eq(1).text(month);
+            dateNum.eq(2).text(date);
+
+
+            // home 페이지 애니메이션 함수
+            let miniTitle = $('.main_visual .title strong');
+            let mainTitle = $('.main_visual .title h2');
+            let titleText = $('.main_visual .title p');
+            let mouse = $('.main_visual .scroll_down');
+
+            // home 페이지 애니메이션 트리거
+            miniTitle.addClass('on');
+            mainTitle.addClass('on');
+            mouse.delay(2000).animate({
+                opacity: 1
+            }, 1000);
+
+
+            // about페이지 애니메이션 함수
+            let aboutTitle = $('.profile .inner .title');
+            let aboutImg = $('.profile .info .about figure');
+            let aboutProfile = $('.profile .info .about > div');
+            let aboutCareer = $('.profile .info .text .career');
+            let aboutSkill = $('.profile .info .text .skill');
+
+
+            // project 페이지 애니메이션 함수
+            let projectTitle = $('.project .title');
+            let projectSlide = $('.project .slide');
+
+
+            // design 페이지 함수 선언
+            let designTitle = $('.design .title');
+            let designTag = $('.design .tag');
+            let tagBtn = $('.design .tag ul li');
+            let designFrame1 = $('.design .frame1');
+            let designFrame2 = $('.design .frame2');
+            let designList1 = $('.design .frame1 .list');
+            let designList2 = $('.design .frame2 .list');
+
+            let cloneList = designList1.clone();
+
+            designList1.addClass('origin');
+            cloneList.addClass('clone');
+
+            let originItem = $('.design .frame .origin .item');
+            let cloneItem = $('.design .frame .clone .item');
+
+            /* function delay() {
+                setTimeout(function () {
+                    designList1.addClass('origin');
+                    cloneList.addClass('clone');
+                }, 2400);
+            } */
+
+            // fullpage 설정, 페이지 넘길 시 애니메이션 트리거 설정
+            var myFullpage = new fullpage('#fullpage', {
+                navigation: false,
+                slidesNavigation: true,
+                lazyLoad: true,
+                credits: { enabled: false },
+                anchors: ['home', 'about', 'project', 'design', 'contact'],
+                afterLoad: function (origin, destination, direction) {
+
+                    // home 페이지로 이동했을 때
+                    if (destination.index == 0) {
+                        navItem.removeClass('on');
+                        navItem.eq(0).addClass('on');
+                    }
+
+                    // about 페이지로 이동했을 때
+                    else if (destination.index == 1) {
+                        aboutTitle.addClass('show');
+                        aboutImg.addClass('show');
+                        aboutProfile.addClass('show');
+                        aboutCareer.addClass('show');
+                        aboutSkill.addClass('show');
+
+                        navItem.removeClass('on');
+                        navItem.eq(1).addClass('on');
+                    }
+
+                    // project 페이지로 이동했을 때
+                    else if (destination.index == 2) {
+                        projectTitle.addClass('show');
+                        projectSlide.addClass('show');
+
+                        navItem.removeClass('on');
+                        navItem.eq(2).addClass('on');
+                    }
+
+                    // design 페이지로 이동했을 때
+                    else if (destination.index == 3) {
+                        designTitle.addClass('show');
+                        designTag.addClass('show');
+                        designFrame1.addClass('show');
+
+                        setTimeout(function () {
+                            designList1.addClass('origin');
+                            cloneList.addClass('clone');
+                        }, 2400);
+
+                        navItem.removeClass('on');
+                        navItem.eq(3).addClass('on');
+                    }
+                }
+            });
+
+
+            // 팬시박스 설정
+            Fancybox.bind("[data-fancybox]", {
+                // Your custom options
+            });
+
+
+            // 리스트 클론 위치설정
+            cloneList.appendTo(designFrame1);
+            cloneList.css({
+                'position': 'absolute',
+                'top': '0',
+                'left': '6268px'
+            })
+
+
+            // design 페이지 변경버튼
+            tagBtn.click(function () {
+                if ($(this).index() == 0) {
+                    designFrame2.removeClass('on');
+                    designFrame1.addClass('on');
+                    designFrame1.removeClass('show');
+                    designFrame1.removeClass('move');
+                } else {
+                    designFrame1.removeClass('on');
+                    designFrame2.addClass('on');
+                }
+            });
+
+
+            // design 페이지 슬라이드 정지, 재시작 함수
+            function paused() {
+                designList1.css({
+                    'animation-play-state': 'paused'
+                })
+
+                cloneList.css({
+                    'animation-play-state': 'paused'
+                })
+            };
+
+            function running() {
+                designList1.css({
+                    'animation-play-state': 'running'
+                })
+
+                cloneList.css({
+                    'animation-play-state': 'running'
+                })
+            };
+
+
+            // design 페이지 슬라이드 마우스 올릴 시 정지, 재시작 
+
+            originItem.mouseenter(function () {
+                paused();
+            });
+
+            cloneItem.mouseenter(function () {
+                paused();
+            });
+
+            originItem.mouseleave(function () {
+                running();
+            });
+
+            cloneItem.mouseleave(function () {
+                running();
+            });
+
+
+            // 디자인 슬라이드 이미지 클릭 시 클론 이미지들은 갤러리에서 제외
+            let cloneGallery = $('.design .frame .clone .item a');
+            cloneGallery.attr('data-fancybox', '');
+
+
+            /* let slide1 = $('.project #slide1');
+            let slide2 = $('.project #slide2');
+            let slide3 = $('.project #slide3');
+            let slideBg1 = $('.project .slide_bg1');
+            let slideBg2 = $('.project .slide_bg2');
+            let slideBg3 = $('.project .slide_bg3');
+            let allBg = $('.project .bg');
+            let btn = $('.project .fp-arrow');
+
+
+            if (slide1.hasClass('active')) {
+                allBg.removeClass('on');
+                slideBg1.addClass('on');
+            } else {
+                allBg.removeClass('on');
+            }; */
         });
     </script>
 </head>
@@ -52,10 +251,11 @@
 
                 <nav class="menu">
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Portfolio</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li class="on"><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#project">Project</a></li>
+                        <li><a href="#design">Design</a></li>
+                        <li><a href="#design">Contact</a></li>
                     </ul>
                 </nav> <!-- menu end -->
             </div> <!-- inner end -->
@@ -67,88 +267,551 @@
                     <div class="title">
                         <div class="frame1"></div>
                         <div class="frame2"></div>
-                        <h2>WELLCOME TO MY PORTFOLIO</h2>
+                        <strong class="move">Web publisher OH SEUNGHUN's</strong>
+                        <h2 class="move">
+                            <img src="img/title.png" alt="title">
+                        </h2>
                     </div> <!-- title end -->
 
-                    <div class="scroll_down">
+                    <div class="scroll_down move">
                         <div class="mouse_frame"></div>
                         <div class="mouse_wheel"></div>
                     </div> <!-- scroll_down end -->
                 </div> <!-- inner end -->
             </div> <!-- section0 end -->
 
-            <div class="section" id="section1">
+            <div class="section profile" id="section1">
                 <div class="inner">
-                    <div class="profile">
-                        <figure>
-                            <img src="" alt="내 사진">
+                    <div class="title move">
+                        <h2>ABOUT</h2>
+                        <p>✱</p>
+                    </div> <!-- title end -->
 
-                            <div class="info">
-                                <strong>ABOUT ME</strong>
-                                <p>안녕하세요! 웹 퍼블리셔 오승훈입니다. <br>
-                                    멈추지 않고 항상 발전해나가는<br>
-                                    개발자가 되고 싶습니다.</p>
-                            </div> <!-- info end -->
-                        </figure>
+                    <div class="info">
+                        <div class="about">
+                            <figure class="move">
+                                <i></i>
+                                <i></i>
+                                <i></i>
+                                <i></i>
+                                <img src="img/profile1.jpg" alt="내 사진">
+                            </figure>
+                        </div> <!-- about end -->
 
-                        <div class="career">
-                            <ul>
-                                <li>
-                                    <strong>2012</strong>
-                                    <p>부산 대동고등학교 졸업</p>
-                                </li>
+                        <div class="text">
+                            <div class="career move">
+                                <div>
+                                    <h3>Profile</h3>
+                                    <ul>
+                                        <li>
+                                            <p>이름 : 오승훈</p>
+                                        </li>
 
-                                <li>
-                                    <strong>2020</strong>
-                                    <p>부산 동서대학교 컴퓨터공학부 졸업</p>
-                                </li>
+                                        <li>
+                                            <p>생년월일 : 1993.11.24</p>
+                                        </li>
 
-                                <li>
-                                    <strong>2019.01 ~ 2020.05</strong>
-                                    <p>해외취업프로그램 K-MOVE 참여</p>
-                                </li>
+                                        <li>
+                                            <p>연락처 : 010-2248-5247</p>
+                                        </li>
 
-                                <li>
-                                    <strong>2020-11 ~ 2021-04</strong>
-                                    <p>(디지털컨버전스)자바(Java)스프링프레임워크 개발자양성 과정 수료</p>
-                                </li>
+                                        <li>
+                                            <p>이메일 : tmdgns5236@naver.com</p>
+                                        </li>
 
-                                <li>
-                                    <strong>2023.06 ~ 2023.11</strong>
-                                    <p>인터렉티브 웹모션(HTML,CSS,JS) UI/UX 퍼블리셔 실무 과정 수료</p>
-                                </li>
-                            </ul>
-                        </div> <!-- career end -->
-                    </div> <!-- profile end -->
+                                        <li>
+                                            <p>깃허브 : </p>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                    <div class="skill">
-                        <canvas id="myChart" width="600" height="600"></canvas>
-                    </div> <!-- skill end -->
+                                <div>
+                                    <h3>Education</h3>
+                                    <ul>
+                                        <li>
+                                            <strong>2012</strong>
+                                            <p>부산 대동고등학교 졸업</p>
+                                        </li>
+
+                                        <li>
+                                            <strong>2020</strong>
+                                            <p>부산 동서대학교 컴퓨터공학부 졸업</p>
+                                        </li>
+
+                                        <li>
+                                            <strong><!-- 2019.01 ~  -->2020<!-- .05 --></strong>
+                                            <p>해외취업프로그램 K-MOVE 참여</p>
+                                        </li>
+
+                                        <li>
+                                            <strong><!-- 2020.11 ~  -->2021<!-- .04 --></strong>
+                                            <p>자바(Java)스프링프레임워크 개발자양성 과정 수료</p>
+                                        </li>
+
+                                        <li>
+                                            <strong><!-- 2023.06 ~  -->2023<!-- .11 --></strong>
+                                            <p>인터렉티브 웹모션 UI/UX 퍼블리셔 실무 과정 수료</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div> <!-- career end -->
+
+                            <div class="skill move">
+                                <h3>Skill</h3>
+
+                                <ul>
+                                    <li>
+                                        <img src="img/skill/html.png" alt="html">
+                                        <p>HTML5</p>
+                                    </li>
+
+                                    <li>
+                                        <img src="img/skill/css.png" alt="css">
+                                        <p>CSS3</p>
+                                    </li>
+
+                                    <li>
+                                        <img src="img/skill/js.png" alt="자바스크립트">
+                                        <p>JavaScript</p>
+                                    </li>
+
+                                    <li>
+                                        <img src="img/skill/jquery.png" alt="제이쿼리">
+                                        <p>jQuery</p>
+                                    </li>
+
+                                    <li>
+                                        <img src="img/skill/react.png" alt="리액트">
+                                        <p>React</p>
+                                    </li>
+
+                                    <li>
+                                        <img src="img/skill/git.png" alt="깃">
+                                        <p>Git</p>
+                                    </li>
+                                </ul>
+
+                                <ul>
+                                    <li>
+                                        <img src="img/skill/ps.png" alt="포토샵">
+                                        <p>PhotoShop</p>
+                                    </li>
+
+                                    <li>
+                                        <img src="img/skill/il.png" alt="일러스트레이터">
+                                        <p>Illustrator</p>
+                                    </li>
+
+                                    <li>
+                                        <img src="img/skill/figma.png" alt="피그마">
+                                        <p>Figma</p>
+                                    </li>
+
+                                    <li>
+                                        <img src="img/skill/excel.png" alt="엑셀">
+                                        <p>Excel</p>
+                                    </li>
+
+                                    <li>
+                                        <img src="img/skill/C.png" alt="C">
+                                        <p>C언어</p>
+                                    </li>
+
+                                    <li>
+                                        <img src="img/skill/java.png" alt="자바">
+                                        <p>JAVA</p>
+                                    </li>
+                                </ul>
+                            </div> <!-- skill end -->
+                        </div> <!-- info end -->
+                    </div> <!-- text end -->
                 </div> <!-- inner end -->
-            </div> <!-- section1 end -->
+            </div> <!-- profile end -->
 
-            <div class="section" id="section2">
-                <div class="inner">
-                    <div class="intro">
-                        <h1>3</h1>
-                    </div>
-                </div> <!-- inner end -->
+            <div class="section project" id="section2">
+                <div class="title move">
+                    <h2>PROJECT</h2>
+                    <p>✱</p>
+                </div> <!-- title end -->
+
+                <div class="slide move" id="slide1">
+                    <div class="img">
+                        <img src="img/project/project01.png" alt="매드포갈릭">
+                    </div> <!-- img end -->
+
+                    <div class="info">
+                        <div class="info_title">
+                            <h3>Mad For Garlic</h3>
+                            <span>레스토랑 매드포갈릭 홈페이지 리뉴얼</span>
+                        </div> <!-- info_title end -->
+
+                        <ul>
+                            <li>
+                                <strong>TYPE</strong>
+                                <p>반응형 웹</p>
+                            </li>
+
+                            <li>
+                                <strong>PAGE</strong>
+                                <p>메인페이지</p>
+                            </li>
+
+                            <li>
+                                <strong>TOOL</strong>
+                                <p>HTML, CSS, jQuery, PhotoShop</p>
+                            </li>
+
+                            <li>
+                                <strong>기여도</strong>
+                                <p>디자인 100%, 코딩 100%</p>
+                            </li>
+
+                            <li>
+                                <strong>제작기간</strong>
+                                <p>2주 (기획/디자인/코딩)</p>
+                            </li>
+                        </ul>
+
+                        <ul class="button">
+                            <li>
+                                <a href="#">Style Guide</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Website</a>
+                            </li>
+                        </ul> <!-- button end -->
+                    </div> <!-- info end -->
+                </div> <!-- #slide1 end -->
+
+                <div class="slide" id="slide2">
+                    <div class="img">
+                        <img src="img/project/project01.png" alt="매드포갈릭">
+                    </div> <!-- img end -->
+
+                    <div class="info">
+                        <div class="info_title">
+                            <h3>e-베이커리 홈</h3>
+                            <span>베이킹 레시피 사이트 리뉴얼</span>
+                        </div> <!-- info_title end -->
+
+                        <ul>
+                            <li>
+                                <strong>TYPE</strong>
+                                <p>PC 전용</p>
+                            </li>
+
+                            <li>
+                                <strong>PAGE</strong>
+                                <p>메인페이지</p>
+                            </li>
+
+                            <li>
+                                <strong>TOOL</strong>
+                                <p>HTML, CSS, jQuery, PhotoShop</p>
+                            </li>
+
+                            <li>
+                                <strong>기여도</strong>
+                                <p>디자인 100%, 코딩 100%</p>
+                            </li>
+
+                            <li>
+                                <strong>제작기간</strong>
+                                <p>8일 (기획/디자인/코딩)</p>
+                            </li>
+                        </ul>
+
+                        <ul class="button">
+                            <li>
+                                <a href="#">Style Guide</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Website</a>
+                            </li>
+                        </ul> <!-- button end -->
+                    </div> <!-- info end -->
+                </div> <!-- #slide2 end -->
+
+                <div class="slide" id="slide3">
+                    <div class="img">
+                        <img src="img/project/project01.png" alt="매드포갈릭">
+                    </div> <!-- img end -->
+
+                    <div class="info">
+                        <div class="info_title">
+                            <h3>질레트 코리아</h3>
+                            <span>면도기 브랜드 질레트 홈페이지 리뉴얼</span>
+                        </div> <!-- info_title end -->
+
+                        <ul>
+                            <li>
+                                <strong>TYPE</strong>
+                                <p>PC 전용</p>
+                            </li>
+
+                            <li>
+                                <strong>PAGE</strong>
+                                <p>메인페이지</p>
+                            </li>
+
+                            <li>
+                                <strong>TOOL</strong>
+                                <p>HTML, CSS, jQuery, Figma</p>
+                            </li>
+
+                            <li>
+                                <strong>기여도</strong>
+                                <p>디자인 100%, 코딩 100%</p>
+                            </li>
+
+                            <li>
+                                <strong>제작기간</strong>
+                                <p>10일 (기획/디자인/코딩)</p>
+                            </li>
+                        </ul>
+
+                        <ul class="button">
+                            <li>
+                                <a href="#">Style Guide</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Website</a>
+                            </li>
+                        </ul> <!-- button end -->
+                    </div> <!-- info end -->
+                </div> <!-- #slide3 end -->
+
+                <div class="slide" id="slide4">
+                    <div class="img">
+                        <img src="img/project/project01.png" alt="매드포갈릭">
+                    </div> <!-- img end -->
+
+                    <div class="info">
+                        <div class="info_title">
+                            <h3>스미스티</h3>
+                            <span>차(Tea)전문 스미스티 홈페이지 리뉴얼</span>
+                        </div> <!-- info_title end -->
+
+                        <ul>
+                            <li>
+                                <strong>TYPE</strong>
+                                <p>반응형 웹</p>
+                            </li>
+
+                            <li>
+                                <strong>PAGE</strong>
+                                <p>메인페이지</p>
+                            </li>
+
+                            <li>
+                                <strong>TOOL</strong>
+                                <p>HTML, CSS, jQuery, Figma</p>
+                            </li>
+
+                            <li>
+                                <strong>기여도</strong>
+                                <p>디자인 100%, 코딩 100%</p>
+                            </li>
+
+                            <li>
+                                <strong>제작기간</strong>
+                                <p>10일 (기획/디자인/코딩)</p>
+                            </li>
+                        </ul>
+
+                        <ul class="button">
+                            <li>
+                                <a href="#">Style Guide</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Website</a>
+                            </li>
+                        </ul> <!-- button end -->
+                    </div> <!-- info end -->
+                </div> <!-- #slide4 end -->
+
+                <div class="slide" id="slide5">
+                    <div class="img">
+                        <img src="img/project/project01.png" alt="매드포갈릭">
+                    </div> <!-- img end -->
+
+                    <div class="info">
+                        <div class="info_title">
+                            <h3>마녀공장</h3>
+                            <span>화장품 판매사이트 마녀공장 홈페이지 리뉴얼</span>
+                        </div> <!-- info_title end -->
+
+                        <ul>
+                            <li>
+                                <strong>TYPE</strong>
+                                <p>반응형 웹</p>
+                            </li>
+
+                            <li>
+                                <strong>PAGE</strong>
+                                <p>메인페이지</p>
+                            </li>
+
+                            <li>
+                                <strong>TOOL</strong>
+                                <p>HTML, CSS, jQuery, Figma</p>
+                            </li>
+
+                            <li>
+                                <strong>기여도</strong>
+                                <p>디자인 100%, 코딩 100%</p>
+                            </li>
+
+                            <li>
+                                <strong>제작기간</strong>
+                                <p>10일 (기획/디자인/코딩)</p>
+                            </li>
+                        </ul>
+
+                        <ul class="button">
+                            <li>
+                                <a href="#">Style Guide</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Website</a>
+                            </li>
+                        </ul> <!-- button end -->
+                    </div> <!-- info end -->
+                </div> <!-- #slide5 end -->
             </div> <!-- section2 end -->
-        </div> <!-- fullpage end -->
 
-        <footer></footer>
+            <div class="section design" id="section3">
+                <div class="inner">
+                    <div class="title move">
+                        <h2>DESIGN</h2>
+                        <p>✱</p>
+                    </div> <!-- title end -->
+
+                    <div class="tag move">
+                        <ul>
+                            <li><a href="#">이벤트 페이지</a></li>
+                            <li><a href="#">상세 페이지</a></li>
+                        </ul>
+                    </div> <!-- tag end -->
+
+                    <div class="frame1 frame on move">
+                        <div class="list">
+                            <div class="item">
+                                <img src="img/design/ps/해바라기_ps.jpg" />
+                                <a href="img/design/ps/해바라기_ps.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+
+                            <div class="item">
+                                <img src="img/design/ps/하와이_ps.jpg" />
+                                <a href="img/design/ps/하와이_ps.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+
+                            <div class="item">
+                                <img src="img/design/ps/캠핑_ps.jpg" />
+                                <a href="img/design/ps/캠핑_ps.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+
+                            <div class="item">
+                                <img src="img/design/ps/샐러드_ps.jpg" />
+                                <a href="img/design/ps/샐러드_ps.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+
+                            <div class="item">
+                                <img src="img/design/ps/두바이_ps.jpg" />
+                                <a href="img/design/ps/두바이_ps.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+
+                            <div class="item">
+                                <img src="img/design/ps/인생철학_ps.jpg" />
+                                <a href="img/design/ps/인생철학_ps.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+
+                            <div class="item">
+                                <img src="img/design/ps/신혼부부_ps.jpg" />
+                                <a href="img/design/ps/신혼부부_ps.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+
+                            <div class="item">
+                                <img src="img/design/ps/부산관광_ps.jpg" />
+                                <a href="img/design/ps/부산관광_ps.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+
+                            <div class="item">
+                                <img src="img/design/ai/네일_ai.jpg" />
+                                <a href="img/design/ai/네일_ai.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+
+                            <div class="item">
+                                <img src="img/design/ai/봄세일_ai.jpg" />
+                                <a href="img/design/ai/봄세일_ai.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+                        </div> <!-- list end -->
+                    </div> <!-- frame end -->
+
+                    <div class="frame2 frame">
+                        <div class="list">
+                            <div class="item">
+                                <img src="img/design/figma/오난코리아.jpg" />
+                                <a href="img/design/figma/오난코리아.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+
+                            <div class="item">
+                                <img src="img/design/figma/바이컬러 가글.jpg" />
+                                <a href="img/design/figma/바이컬러 가글.jpg" data-fancybox="gallery">
+                                    <span></span>
+                                    <p>크게보기</p>
+                                </a>
+                            </div> <!-- item end -->
+                        </div> <!-- list end -->
+                    </div> <!-- frame end -->
+                </div> <!-- inner end -->
+            </div> <!-- section3 end -->
+
+            <footer>
+                <div class="inner">
+
+                </div> <!-- inner end -->
+            </footer>
+        </div> <!-- fullpage end -->
     </div> <!-- #wrap end -->
 </body>
 
 </html>
-
-
-<!-- <div class="slide" id="slide1">
-    <div class="intro">
-        <h1>2</h1>
-    </div>
-</div>
-
-<div class="slide" id="slide2">
-    <h1>This example uses responsiveWidth: 900</h1>
-</div> -->
