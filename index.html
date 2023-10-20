@@ -57,6 +57,7 @@
             // about페이지 애니메이션 함수
             let aboutTitle = $('.profile .inner .title');
             let aboutImg = $('.profile .info .about figure');
+            let imgLine = $('.profile .info .about figure i');
             let aboutProfile = $('.profile .info .about > div');
             let aboutCareer = $('.profile .info .text .career');
             let aboutSkill = $('.profile .info .text .skill');
@@ -131,16 +132,21 @@
                             bg.removeClass('on');
                             setTimeout(function () {
                                 bg.addClass('on');
+                                imgLine.css({
+                                    'background-color': '#FEFCF3'
+                                });
                             }, 500);
                         } else {
                             bg.addClass('on');
-                        }
+                            imgLine.css({
+                                'background-color': '#FEFCF3'
+                            });
+                        };
 
                         // 배경 색 변경
                         bg.css({
                             'background-color': '#FEFCF3'
                         });
-
                     }
 
                     else if (destination.index == 2) {      // project 페이지로 이동했을 때
@@ -164,7 +170,8 @@
 
                         // 배경 색 변경
                         bg.css({
-                            'background-color': '#F5EBE0'
+                            'background-color': '#B4CFB0'
+                            /* F5EBE0 */
                         });
                     }
 
@@ -222,7 +229,7 @@
 
                         // 배경 색 변경
                         bg.css({
-                            'background-color': '#E8F3D6'
+                            'background-color': '#F5EBE0'
                         });
                     }
                 }
@@ -241,7 +248,7 @@
             });
 
 
-            // 리스트 클론 위치설정
+            // design 페이지 리스트 클론 위치설정
             cloneList.appendTo(eventFrame);
             cloneList.css({
                 'position': 'absolute',
@@ -573,8 +580,9 @@
                 </div> <!-- title end -->
 
                 <div class="slide move" id="slide1">
+                    <div class="project_bg"></div>
                     <div class="img">
-                        <img src="img/project/project01.png" alt="매드포갈릭">
+                        <img src="img/project/01.madforgarlic.png" alt="매드포갈릭">
                     </div> <!-- img end -->
 
                     <div class="info">
@@ -610,21 +618,18 @@
                             </li>
                         </ul>
 
-                        <ul class="button">
-                            <li>
-                                <a href="#">Style Guide</a>
-                            </li>
-
-                            <li>
-                                <a href="#">Website</a>
-                            </li>
-                        </ul> <!-- button end -->
+                        <div class="button">
+                            <a href="#">Style Guide</a>
+                            <a href="#">Website</a>
+                            <a href="#">Github</a>
+                        </div> <!-- button end -->
                     </div> <!-- info end -->
                 </div> <!-- #slide1 end -->
 
                 <div class="slide" id="slide2">
+                    <div class="project_bg"></div>
                     <div class="img">
-                        <img src="img/project/project01.png" alt="매드포갈릭">
+                        <img src="img/project/02.e-home.png" alt="e베이커리">
                     </div> <!-- img end -->
 
                     <div class="info">
@@ -660,21 +665,18 @@
                             </li>
                         </ul>
 
-                        <ul class="button">
-                            <li>
-                                <a href="#">Style Guide</a>
-                            </li>
-
-                            <li>
-                                <a href="#">Website</a>
-                            </li>
-                        </ul> <!-- button end -->
+                        <div class="button">
+                            <a href="#">Style Guide</a>
+                            <a href="#">Website</a>
+                            <a href="#">Github</a>
+                        </div> <!-- button end -->
                     </div> <!-- info end -->
                 </div> <!-- #slide2 end -->
 
                 <div class="slide" id="slide3">
+                    <div class="project_bg"></div>
                     <div class="img">
-                        <img src="img/project/project01.png" alt="매드포갈릭">
+                        <img src="img/project/03.gillette.png" alt="질레트">
                     </div> <!-- img end -->
 
                     <div class="info">
@@ -706,25 +708,22 @@
 
                             <li>
                                 <strong>제작기간</strong>
-                                <p>10일 (기획/디자인/코딩)</p>
+                                <p>7일 (기획/디자인/코딩)</p>
                             </li>
                         </ul>
 
-                        <ul class="button">
-                            <li>
-                                <a href="#">Style Guide</a>
-                            </li>
-
-                            <li>
-                                <a href="#">Website</a>
-                            </li>
-                        </ul> <!-- button end -->
+                        <div class="button">
+                            <a href="#">Style Guide</a>
+                            <a href="#">Website</a>
+                            <a href="#">Github</a>
+                        </div> <!-- button end -->
                     </div> <!-- info end -->
                 </div> <!-- #slide3 end -->
 
                 <div class="slide" id="slide4">
+                    <div class="project_bg"></div>
                     <div class="img">
-                        <img src="img/project/project01.png" alt="매드포갈릭">
+                        <img src="img/project/04.smithtea.png" alt="스미스티">
                     </div> <!-- img end -->
 
                     <div class="info">
@@ -760,21 +759,18 @@
                             </li>
                         </ul>
 
-                        <ul class="button">
-                            <li>
-                                <a href="#">Style Guide</a>
-                            </li>
-
-                            <li>
-                                <a href="#">Website</a>
-                            </li>
-                        </ul> <!-- button end -->
+                        <div class="button">
+                            <a href="#">Style Guide</a>
+                            <a href="#">Website</a>
+                            <a href="#">Github</a>
+                        </div> <!-- button end -->
                     </div> <!-- info end -->
                 </div> <!-- #slide4 end -->
 
                 <div class="slide" id="slide5">
+                    <div class="project_bg"></div>
                     <div class="img">
-                        <img src="img/project/project01.png" alt="매드포갈릭">
+                        <img src="img/project/05.manyo.png" alt="마녀공장">
                     </div> <!-- img end -->
 
                     <div class="info">
@@ -810,17 +806,60 @@
                             </li>
                         </ul>
 
-                        <ul class="button">
+                        <div class="button">
+                            <a href="#">Style Guide</a>
+                            <a href="#">Website</a>
+                            <a href="#">Github</a>
+                        </div> <!-- button end -->
+                    </div> <!-- info end -->
+                </div> <!-- #slide5 end -->
+
+                <div class="slide" id="slide6">
+                    <div class="project_bg"></div>
+                    <div class="img">
+                        <img src="img/project/06.busantour.png" alt="부산관광">
+                    </div> <!-- img end -->
+
+                    <div class="info">
+                        <div class="info_title">
+                            <h3>부산관광</h3>
+                            <span>React와 부산관광API를 이용한 부산관광 사이트</span>
+                        </div> <!-- info_title end -->
+
+                        <ul>
                             <li>
-                                <a href="#">Style Guide</a>
+                                <strong>TYPE</strong>
+                                <p>모바일 웹</p>
                             </li>
 
                             <li>
-                                <a href="#">Website</a>
+                                <strong>PAGE</strong>
+                                <p>메인페이지</p>
                             </li>
-                        </ul> <!-- button end -->
+
+                            <li>
+                                <strong>TOOL</strong>
+                                <p>React, HTML, CSS</p>
+                            </li>
+
+                            <li>
+                                <strong>기여도</strong>
+                                <p>디자인 100%, 코딩 100%</p>
+                            </li>
+
+                            <li>
+                                <strong>제작기간</strong>
+                                <p>6일 (기획/디자인/코딩)</p>
+                            </li>
+                        </ul>
+
+                        <div class="button">
+                            <a href="#">Style Guide</a>
+                            <a href="#">Website</a>
+                            <a href="#">Github</a>
+                        </div> <!-- button end -->
                     </div> <!-- info end -->
-                </div> <!-- #slide5 end -->
+                </div> <!-- #slide6 end -->
             </div> <!-- section2 end -->
 
             <div class="section design" id="section3">
@@ -965,7 +1004,8 @@
                                 </li>
                                 <li>Phone : (+82)010-2248-5247</li>
                                 <li>E-Mail : tmdgns5236@naver.com</li>
-                                <li>Github : <a href="https://github.com/oshLunch" target='_blank'>https://github.com/oshLunch</a></li>
+                                <li>Github : <a href="https://github.com/oshLunch"
+                                        target='_blank'>https://github.com/oshLunch</a></li>
                             </ul>
                         </div> <!-- thanks end -->
 

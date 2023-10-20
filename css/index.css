@@ -36,7 +36,7 @@ img {
     height: 200px;
     background-color: rgba(0, 0, 0, 0.1);
     position: absolute;
-    top: 45%;
+    top: 50%;
     /* left: 50%; */
     left: 860px;
     /* transform: translate(-50%, -50%) rotate(45deg); */
@@ -195,7 +195,7 @@ header .menu ul li.on a::after {
 
 .main_visual .title {
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -439,52 +439,45 @@ header .menu ul li.on a::after {
     position: relative;
 }
 
-.profile .info .about figure i:nth-of-type(1) {
-    width: 75%;
-    height: 3px;
-    background: #faf7f5;
+.profile .info .about figure i {
+    background: white;
     display: block;
     position: absolute;
-    top: -2px;
+    z-index: 3;
+}
+
+.profile .info .about figure i:nth-of-type(1) {
+    width: 75%;
+    height: 4px;
+    position: absolute;
+    top: -3px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 3;
 }
 
 .profile .info .about figure i:nth-of-type(2) {
     width: 75%;
-    height: 3px;
-    background: #faf7f5;
-    display: block;
-    position: absolute;
-    bottom: -2px;
+    height: 4px;
+    bottom: -3px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 3;
 }
 
 .profile .info .about figure i:nth-of-type(3) {
-    width: 3px;
+    width: 4px;
     height: 60%;
-    background: #faf7f5;
-    display: block;
     position: absolute;
     top: 50%;
-    left: -2px;
+    left: -3px;
     transform: translateY(-50%);
-    z-index: 3;
 }
 
 .profile .info .about figure i:nth-of-type(4) {
-    width: 3px;
+    width: 4px;
     height: 60%;
-    background: #faf7f5;
-    display: block;
-    position: absolute;
     top: 50%;
-    right: -2px;
+    right: -3px;
     transform: translateY(-50%);
-    z-index: 3;
 }
 
 .profile .info .about figure img {
@@ -693,7 +686,12 @@ header .menu ul li.on a::after {
     height: calc(100% - 300px);
     margin: 150px auto 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 50px;
+    position: relative;
+}
+
+.project .slide {
     position: relative;
 }
 
@@ -713,21 +711,17 @@ header .menu ul li.on a::after {
     }
 }
 
-.project .fp-overflow::after {
-    content: '';
+.project .slide .project_bg {
     width: 100%;
-    height: 70%;
+    height: 450px;
     position: absolute;
     top: 50%;
     left: 0;
+    background-color: #ffffff99;
     transform: translateY(-50%);
-    /* background-color: #8b8b8b2f; */
-    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .project .fp-overflow .img {
-    /* width: calc(100% - 30% - 15px); */
-    width: 1323px;
     height: 100%;
     z-index: 3;
 }
@@ -776,15 +770,21 @@ header .menu ul li.on a::after {
     gap: 30px;
 }
 
-.project .fp-overflow .info .button li a {
+.project .fp-overflow .info .button a {
     display: block;
     width: 130px;
+    font-weight: bold;
     text-align: center;
-    padding: 5px 10px;
+    padding: 10px 10px;
     border: 2px solid #333;
-    border-top-width: 1px;
-    border-left-width: 1px;
     border-radius: 5px;
+    transition: .3s;
+}
+
+.project .fp-overflow .info .button a:hover {
+    background-color: #333;
+    color: white;
+    transition: .3s;
 }
 
 .fp-arrow.fp-prev {
@@ -796,14 +796,14 @@ header .menu ul li.on a::after {
 }
 
 .fp-prev {
-    top: 60%;
+    top: calc(50% + 65px);
     left: 10px;
 }
 
 .fp-next {
-    top: 60%;
-    /* right: 10px; */
-    left: 1870px;
+    top: calc(50% + 65px);
+    right: 10px;
+    /* left: 1870px; */
 }
 
 .fp-slidesNav {
