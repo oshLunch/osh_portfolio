@@ -440,7 +440,7 @@ header .menu ul li.on a::after {
 }
 
 .profile .info .about figure i {
-    background: white;
+    background: #FEFCF3;
     display: block;
     position: absolute;
     z-index: 3;
@@ -767,18 +767,27 @@ header .menu ul li.on a::after {
 
 .project .fp-overflow .info .button {
     display: flex;
-    gap: 30px;
+    gap: 15px;
 }
 
 .project .fp-overflow .info .button a {
-    display: block;
-    width: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 140px;
+    height: 40px;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
-    padding: 10px 10px;
     border: 2px solid #333;
     border-radius: 5px;
     transition: .3s;
+}
+
+.project .fp-overflow .info .button a img {
+    width: 15px;
+    height: 20px;
 }
 
 .project .fp-overflow .info .button a:hover {
