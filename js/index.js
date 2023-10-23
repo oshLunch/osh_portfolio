@@ -27,7 +27,6 @@ $(function () {
         // home 페이지 애니메이션 함수
         let miniTitle = $('.main_visual .title strong');
         let mainTitle = $('.main_visual .title h2');
-        let titleText = $('.main_visual .title p');
         let mouse = $('.main_visual .scroll_down');
 
         // home 페이지 애니메이션 트리거
@@ -41,7 +40,6 @@ $(function () {
         // about페이지 애니메이션 함수
         let aboutTitle = $('.profile .inner .title');
         let aboutImg = $('.profile .info .about figure');
-        let imgLine = $('.profile .info .about figure i');
         let aboutProfile = $('.profile .info .about > div');
         let aboutCareer = $('.profile .info .text .career');
         let aboutSkill = $('.profile .info .text .skill');
@@ -61,20 +59,19 @@ $(function () {
         let detailFrame = $('.design .detail_frame');
 
         let eventList = $('.design .event_frame .list');
-        let detailList = $('.design .detail_frame .list');
 
         let cloneList = eventList.clone();
         eventList.attr('id', 'origin');
         cloneList.attr('id', 'clone');
-
-        let originItem = $('.design .event_frame #origin .item');
-        let cloneItem = $('.design .event_frame #clone .item');
 
 
         // contact 페이지 함수 선언
         let contactTitle = $('.contact .title');
         let contactThanks = $('.contact .subject .thanks');
         let contactMail = $('.contact .subject .mail');
+        let emailName = $('.contact .subject .mail form .m_name');
+        let emailAddress = $('.contact .subject .mail form .m_address');
+        let emailTel = $('.contact .subject .mail form .m_tel');
 
 
         // fullpage 설정, 페이지 넘길 시 애니메이션 트리거 설정
@@ -309,7 +306,11 @@ $(function () {
         $("#emailForm").submit(function (event) {
             // Prevent the default submit behavior
             event.preventDefault();
-
+            
+            emailName.removeClass('error');
+            emailAddress.removeClass('error');
+            emailTel.removeClass('error');
+            
             let current_html_form = $(this);
             let action_url = current_html_form.attr('action');
             // Grab the form data using the FormData Object
@@ -342,11 +343,12 @@ $(function () {
                     });
                 } else {
                     event.preventDefault();
-                    alert('이메일 혹은 전화번호 중 하나를 반드시 작성해주세요');
+                    emailAddress.addClass('error');
+                    emailTel.addClass('error');
                 }
             } else {
                 event.preventDefault();
-                alert('이름을 작성해주세요');
+                emailName.addClass('error');
             };
         });
     });

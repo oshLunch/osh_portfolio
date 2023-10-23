@@ -6,7 +6,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;
 }
 
 li {
@@ -21,7 +20,7 @@ a {
 body {
     line-height: 1;
     color: #333;
-    /* background-color: #e6e6e6; */
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 img {
@@ -348,10 +347,6 @@ header .menu ul li.on a::after {
 /* -------------------------------------------------------------------- */
 /* profile */
 
-/* .profile {
-    background-color: #faf7f5;
-} */
-
 .profile .title {
     text-align: center;
     padding-top: 30px;
@@ -572,7 +567,6 @@ header .menu ul li.on a::after {
 
 .profile .info .text .skill ul li {
     text-align: center;
-    cursor: pointer;
 }
 
 .profile .info .text .skill ul li:hover img {
@@ -1220,20 +1214,25 @@ header .menu ul li.on a::after {
     height: 100%;
 }
 
-.contact .subject .mail form div {
-    height: 80px;
-    margin-bottom: 25px;
+.contact .subject .mail form > div {
+    margin-bottom: 20px;
 }
 
-.contact .subject .mail form div:last-of-type {
+.contact .subject .mail form > div:last-of-type {
     height: auto;
 }
 
-.contact .subject .mail form div h4 {
+.contact .subject .mail form > div h4 {
     margin-bottom: 10px;
 }
 
-.contact .subject .mail form div input {
+.contact .subject .mail form > div .text {
+    position: relative;
+    height: 50px;
+    margin-bottom: 3px;
+}
+
+.contact .subject .mail form > div .text input {
     width: 100%;
     padding: 10px;
     font-size: 20px;
@@ -1242,10 +1241,43 @@ header .menu ul li.on a::after {
     background-color: white;
 }
 
-.contact .subject .mail form div input:focus {
-    border-width: 3px;
+.contact .subject .mail form > div.error .text input {
+    border: 2px solid rgba(255, 0, 0, 0.8);
+}
+
+.contact .subject .mail form > div .text input:focus {
+    border-width: 2px;
     border-color: #333;
     outline: none;
+}
+
+.contact .subject .mail form > div.error .text input:focus {
+    border-color: rgba(255, 0, 0, 0.8);
+}
+
+.contact .subject .mail form > div .text span {
+    display: none;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    right: 2%;
+    transform: translateY(-50%);
+}
+
+.contact .subject .mail form > div.error .text span {
+    display: block;
+}
+
+.contact .subject .mail form > div p {
+    display: none;
+    margin-left: 1%;
+    font-size: 14px;
+    color: rgba(255, 0, 0, 0.8);
+}
+
+.contact .subject .mail form > div.error p {
+    display: block;
 }
 
 .contact .subject .mail form .m_text textarea {
@@ -1259,12 +1291,12 @@ header .menu ul li.on a::after {
 }
 
 .contact .subject .mail form .m_text textarea:focus {
-    border-width: 3px;
+    border-width: 2px;
     border-color: #333;
     outline: none;
 }
 
-.contact .subject .mail button {
+.contact .subject .mail form button {
     display: flex;
     width: 200px;
     height: 45px;
