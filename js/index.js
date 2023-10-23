@@ -293,28 +293,14 @@ $(function () {
         let cloneGallery = $('.design .event_frame #clone .item a');
         cloneGallery.attr('data-fancybox', '');
 
-        // 전화번호 사이에 하이픈('-') 추가
-        $('.contact .subject .mail .m_tel input').keydown(function (event) {
-            var key = event.charCode || event.keyCode || 0;
-            $text = $(this);
-            if (key !== 8 && key !== 9) {
-                if ($text.val().length === 3) {
-                    $text.val($text.val() + '-');
-                }
-                if ($text.val().length === 8) {
-                    $text.val($text.val() + '-');
-                }
-            }
-        })
-
-        // 숫자만 입력 가능하다
+        // 숫자만 입력 가능, 전화번호 사이에 하이픈('-') 추가
         $('input[onlyNumber]').on('keyup', function () {
-            $(this).val($(this).val().replace(/[^-0-9]/g, ""));
+            $(this).val($(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})/,"$1-$2-$3").replace("--", "-") );
         });
 
         // 영어, 숫자만 입력 가능하다
         $('input[onlyEngNum]').on('keyup', function () {
-            $(this).val($(this).val().replace(/[^a-z A-z 0-9 @ .]/g, ""));
+            $(this).val($(this).val().replace(/[^a-z A-Z 0-9 @ .]/g, ""));
         });
 
         // JSON으로 보내지는 form 데이터를 AJAX 양식으로 변경한다
@@ -329,27 +315,38 @@ $(function () {
             // Later, we'll use the data in the ajax request.
             let form_data = new FormData(document.getElementById('emailForm'));
 
-            $.ajax({
-                type: "POST",
-                url: action_url,
-                data: form_data,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    alert('메일이 전송되었습니다. 확인 후 회신드리겠습니다.');
-                    $('#name').val('');
-                    $('#email').val('');
-                    $('#tel').val('');
-                    $('#message').val('');
-                },
-                error: function (jQXHR, textStatus, errorMessage) {
-                    alert('메일 전송에 실패하였습니다. 잠시 후 다시 시도해주세요.');
-                    $('#name').val('');
-                    $('#email').val('');
-                    $('#tel').val('');
-                    $('#message').val('');
-                },
-            });
+            if($("#name").val() != '') {
+                if(($("#email").val() != '' && $("#tel").val() != '') |
+                    ($("#email").val() != '' | $("#tel").val() != '')) {
+                    $.ajax({
+                        type: "POST",
+                        url: action_url,
+                        data: form_data,
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            alert('메일이 전송되었습니다. 확인 후 회신드리겠습니다.');
+                            $('#name').val('');
+                            $('#email').val('');
+                            $('#tel').val('');
+                            $('#message').val('');
+                        },
+                        error: function (jQXHR, textStatus, errorMessage) {
+                            alert('메일 전송에 실패하였습니다. 잠시 후 다시 시도해주세요.');
+                            $('#name').val('');
+                            $('#email').val('');
+                            $('#tel').val('');
+                            $('#message').val('');
+                        },
+                    });
+                } else {
+                    alert('이메일 혹은 전화번호 중 하나를 반드시 작성해주세요');
+                    event.preventDefault();
+                }
+            } else {
+                event.preventDefault();
+                alert('이름을 작성해주세요');
+            };
         });
     });
 });
