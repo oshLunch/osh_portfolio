@@ -72,6 +72,7 @@ $(function () {
         let emailName = $('.contact .subject .mail form .m_name');
         let emailAddress = $('.contact .subject .mail form .m_address');
         let emailTel = $('.contact .subject .mail form .m_tel');
+        let emailMessage = $('.contact .subject .mail form .m_text');
 
 
         // fullpage 설정, 페이지 넘길 시 애니메이션 트리거 설정
@@ -310,7 +311,8 @@ $(function () {
             emailName.removeClass('error');
             emailAddress.removeClass('error');
             emailTel.removeClass('error');
-            
+            emailMessage.removeClass('error');
+
             let current_html_form = $(this);
             let action_url = current_html_form.attr('action');
             // Grab the form data using the FormData Object
@@ -320,32 +322,39 @@ $(function () {
             if($("#name").val() != '') {
                 if(($("#email").val() != '' && $("#tel").val() != '') |
                     ($("#email").val() != '' | $("#tel").val() != '')) {
-                    $.ajax({
-                        type: "POST",
-                        url: action_url,
-                        data: form_data,
-                        processData: false,
-                        contentType: false,
-                        success: function (data) {
-                            alert('메일이 전송되었습니다. 확인 후 회신드리겠습니다.');
-                            $('#name').val('');
-                            $('#email').val('');
-                            $('#tel').val('');
-                            $('#message').val('');
-                        },
-                        error: function (jQXHR, textStatus, errorMessage) {
-                            alert('메일 전송에 실패하였습니다. 잠시 후 다시 시도해주세요.');
-                            $('#name').val('');
-                            $('#email').val('');
-                            $('#tel').val('');
-                            $('#message').val('');
-                        },
-                    });
+                        if($("#message").val() != '') {
+                            $.ajax({
+                                type: "POST",
+                                url: action_url,
+                                data: form_data,
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+                                    alert('메일이 전송되었습니다. 확인 후 회신드리겠습니다.');
+                                    $('#name').val('');
+                                    $('#email').val('');
+                                    $('#tel').val('');
+                                    $('#message').val('');
+                                },
+                                error: function (jQXHR, textStatus, errorMessage) {
+                                    alert('메일 전송에 실패하였습니다. 잠시 후 다시 시도해주세요.');
+                                    $('#name').val('');
+                                    $('#email').val('');
+                                    $('#tel').val('');
+                                    $('#message').val('');
+                                },
+                            });
+                        } else {
+                            event.preventDefault();
+                            emailMessage.addClass('error');
+                        }
+
                 } else {
                     event.preventDefault();
                     emailAddress.addClass('error');
                     emailTel.addClass('error');
                 }
+
             } else {
                 event.preventDefault();
                 emailName.addClass('error');
