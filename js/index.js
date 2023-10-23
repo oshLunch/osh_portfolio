@@ -292,15 +292,16 @@ $(function () {
         // 디자인 슬라이드 이미지 클릭 시 클론 이미지들은 갤러리에서 제외
         let cloneGallery = $('.design .event_frame #clone .item a');
         cloneGallery.attr('data-fancybox', '');
+        
 
-        // 숫자만 입력 가능, 전화번호 사이에 하이픈('-') 추가
-        $('input[onlyNumber]').on('keyup', function () {
-            $(this).val($(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})/,"$1-$2-$3").replace("--", "-") );
+        // 영어, 숫자, ., @만 입력 가능하다
+        $('#email').keyup(function () {
+            $(this).val($(this).val().replace(/[^a-z A-Z 0-9 @ .]/g, ""));
         });
 
-        // 영어, 숫자만 입력 가능하다
-        $('input[onlyEngNum]').on('keyup', function () {
-            $(this).val($(this).val().replace(/[^a-z A-Z 0-9 @ .]/g, ""));
+        // 숫자만 입력 가능, 전화번호 사이에 하이픈('-') 추가
+        $('#tel').keyup(function () {
+            $(this).val($(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})/,"$1-$2-$3").replace("--", "-") );
         });
 
         // JSON으로 보내지는 form 데이터를 AJAX 양식으로 변경한다
@@ -340,8 +341,8 @@ $(function () {
                         },
                     });
                 } else {
-                    alert('이메일 혹은 전화번호 중 하나를 반드시 작성해주세요');
                     event.preventDefault();
+                    alert('이메일 혹은 전화번호 중 하나를 반드시 작성해주세요');
                 }
             } else {
                 event.preventDefault();
