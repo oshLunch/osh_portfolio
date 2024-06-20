@@ -1,6 +1,13 @@
 $(function () {
 
     $(function () {
+        // 기본 알림창
+        let windowWidth = $(window).width();
+
+        if (windowWidth > 2000 || windowWidth < 1920) {
+            alert('죄송합니다. 본 사이트는 현재 반응형 작업중에 있어 PC 1920px에 최적화되어 있습니다. 창 크기를 조절해주시면 감사드리겠습니다.');
+        }
+
         // bg 함수
         let bg = $('.bg');
 
